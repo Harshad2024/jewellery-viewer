@@ -1,29 +1,69 @@
-3D Jewellery Viewer (A-Frame)
+# 3D Jewellery Viewer (A-Frame)
 
-An interactive 3D jewellery viewer built using A-Frame, allowing users to:
+A visually rich and interactive 3D jewellery viewer built using **A-Frame**, enabling users to explore a 3D ring model with smooth lighting, rotation, and click animations. The project is optimized for both desktop and mobile devices.
 
-View a 3D ring in a jewellery box
+---
 
-Click to bring the ring forward
+## 🚀 Live Demo
+Experience the 3D viewer here:  
+👉 **https://harshad2024.github.io/jewellery-viewer/**
 
-Rotate the ring using drag gestures
+---
 
-Close the view to reset the position
+## 📂 GitHub Source Code
+👉 **https://github.com/Harshad2024/jewellery-viewer**
 
-Works on desktop & mobile
+---
 
-🚀 Live Demo
+## ✨ Features
+- 💍 **High-quality 3D ring viewer** (GLB model)
+- ✨ **Interactive animations** (click to zoom in, close to reset)
+- 🔄 **Drag to rotate** the ring smoothly
+- 💡 **Realistic lighting** for better visibility
+- 📦 Simple and clean **A-Frame scene structure**
+- 📱 Fully **mobile responsive**
+- ⚡ **Fast loading** and optimized performance
 
-🔗 GitHub Pages:
+---
 
-🛠 Tech Used
+## 🛠 Technologies Used
+- **A-Frame 1.4.0**
+- **Three.js (via A-Frame renderer)**
+- **HTML5 & CSS**
+- **JavaScript**
+- **GitHub Pages** (deployment)
 
-A-Frame 1.4.0
+---
 
-Three.js (built into A-Frame)
+## 📁 Project Structure
+```
+jewellery-viewer/
+│── index.html
+│── README.md
+└── assets/
+      └── ring1.glb
+```
 
-HTML5 / CSS3
+---
 
-JavaScript
+## ▶️ How to Run Locally
+1. Clone the repository:
+```
+git clone https://github.com/Harshad2024/jewellery-viewer
+```
 
-GitHub Pages (hosting)
+2. Open the folder in **VS Code**
+
+3. Right-click **index.html** →  
+   ➝ **Open with Live Server**
+
+4. The 3D viewer will open in your browser.
+
+---
+
+## 👨‍💻 Author
+**Harshad Phirangi**  
+Email: **harshad.phirangi2005@gmail.com**  
+GitHub: **https://github.com/Harshad2024**
+
+---
