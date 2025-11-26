@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+
+  <style>
+    #closeBtn{
+      position:absolute;
+      top:20px;
+      left:20px;
+      padding:10px 20px;
+      background:#ffffff;
+      color:#000;
+      border-radius:8px;
+      font-size:18px;
+      cursor:pointer;
+      display:none;
+      z-index:999;
+    }
+  </style>
+
+  <script>
+
+  /* ============================
+     FOCUS RING ANIMATION
+  ============================= */
+  AFRAME.registerComponent('focus-ring',{
+    init:function(){
+      this.originalPos = this.el.object3D.position.clone();
+      this.originalScale = this.el.object3D.scale.clone();
+      this.focused = false;
+
+      this.el.addEventListener('click',()=>{
+        if(this.focused) return;
+        this.focused = true;
+
+        document.getElementById('closeBtn').style.display = 'block';
+
+        this.el.setAttribute('animation__pos',{
+          property:"position",
+          to:"0 1.5 -1",
+          dur:700,
+          easing:"easeOutCubic"
+        });
+
+        this.el.setAttribute('animation__scale',{
+          property:"scale",
+          to:"1.3 1.3 1.3",
+          dur:700,
+          easing:"easeOutCubic"
+        });
+      });
+    },
+
+    defocus:function(){
+      this.el.setAttribute('animation__pos',{
+        property:"position",
+        to:`${this.originalPos.x} ${this.originalPos.y} ${this.originalPos.z}`,
+        dur:700,
+        easing:"easeOutCubic"
+      });
+
+      this.el.setAttribute('animation__scale',{
+        property:"scale",
+        to:`${this.originalScale.x} ${this.originalScale.y} ${this.originalScale.z}`,
+        dur:700,
+        easing:"easeOutCubic"
+      });
+
+      this.focused = false;
+    }
+  });
+
+
+  /* ============================
+     DRAG ROTATION COMPONENT
+  ============================= */
+  AFRAME.registerComponent('drag-rotate', {
+    init: function () {
+      this.dragging = false;
+      this.lastX = 0;
+
+      window.addEventListener('mousedown', (e) => {
+        this.dragging = true;
+        this.lastX = e.clientX;
+      });
+      window.addEventListener('mouseup', () => {
+        this.dragging = false;
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!this.dragging) return;
+        let dx = e.clientX - this.lastX;
+        this.el.object3D.rotation.y += dx * 0.01;
+        this.lastX = e.clientX;
+      });
+
+      window.addEventListener('touchstart', (e) => {
+        this.dragging = true;
+        this.lastX = e.touches[0].clientX;
+      });
+      window.addEventListener('touchend', () => {
+        this.dragging = false;
+      });
+      window.addEventListener('touchmove', (e) => {
+        if (!this.dragging) return;
+        let dx = e.touches[0].clientX - this.lastX;
+        this.el.object3D.rotation.y += dx * 0.01;
+        this.lastX = e.touches[0].clientX;
+      });
+    }
+  });
+
+
+  /* ============================
+     CLOSE BUTTON ACTION
+  ============================= */
+  window.onload = () => {
+    document.getElementById("closeBtn").onclick = () => {
+      const ringComp = document.querySelector("[focus-ring]").components["focus-ring"];
+      ringComp.defocus();
+      document.getElementById("closeBtn").style.display = "none";
+    };
+  };
+
+  </script>
+</head>
+
+<body>
+
+  <div id="closeBtn">Close</div>
+
+  <a-scene>
+
+    <!-- CLICK SUPPORT -->
+    <a-entity cursor="rayOrigin: mouse" raycaster="objects: [gltf-model]"></a-entity>
+
+    <!-- ===== LIGHTING FIX for Visibility ===== -->
+
+    <!-- Overall brightness -->
+    <a-entity light="type: ambient; color: #FFFFFF; intensity: 1.2"></a-entity>
+
+    <!-- Main studio light -->
+    <a-entity light="type: directional; intensity: 1.5; castShadow: true" position="2 4 2"></a-entity>
+
+    <!-- Fill light -->
+    <a-entity light="type: directional; intensity: 1.0" position="-2 3 -1"></a-entity>
+
+    <!-- Back light -->
+    <a-entity light="type: directional; intensity: 0.8" position="0 2 -3"></a-entity>
+
+
+    <!-- ===== JEWELLERY BOX + RING ===== -->
+    <a-entity position="0 1 -3">
+
+      <!-- Box -->
+      <a-box color="#553311" depth="2" height="0.5" width="3"></a-box>
+
+      <!-- Ring -->
+      <a-entity 
+        gltf-model="assets/ring1.glb"
+        position="0 0.3 0"
+        scale="1 1 1"
+        focus-ring
+        drag-rotate>
+      </a-entity>
+
+    </a-entity>
+
+  </a-scene>
+
+</body>
+</html>
