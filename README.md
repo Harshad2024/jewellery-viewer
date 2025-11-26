@@ -15,7 +15,6 @@ Works on desktop & mobile
 🚀 Live Demo
 
 🔗 GitHub Pages:
-(Your link will appear here after deployment)
 
 🛠 Tech Used
 
